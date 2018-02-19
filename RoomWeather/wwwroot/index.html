@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Hello, 249 room!</title>
+    <style>
+        body{
+            background-color: #252830;
+        }
+        .bpn, .bpq, .bpo, .bpp{
+            color: #fff;
+            border-radius: 3px;
+        }
+
+        .bpn {
+            background-color: #1BC98E;
+        }
+        .bpq {
+            background-color: #E64759;
+        }
+        .bpo {
+            background-color: #9F86FF;
+        }
+        .bpp {
+            background-color: #E4D836;
+        }
+        .ago{
+            padding: 1rem !important;
+        }
+        .bpm .bpi, .bpn .bpi, .bpo .bpi, .bpp .bpi, .bpq .bpi {
+            font-weight: normal;
+            color: rgba(255, 255, 255, 0.65);
+        }
+        .bpi {
+            font-size: 85%;
+            letter-spacing: .15em;
+            color: #828a9f;
+            text-transform: uppercase;
+        }
+        .aei, .aef {
+            margin-bottom: 0 !important;
+        }
+        .bpm .bpr, .bpn .bpr, .bpo .bpr, .bpp .bpr, .bpq .bpr {
+            margin-left: -1rem;
+            margin-right: -1rem;
+            border-top-color: rgba(255, 255, 255, 0.2);
+        }
+        hr {
+            margin-top: 30px;
+            border: 0;
+            border-top: 1px solid #434857;
+            margin-bottom: 30px;
+        }
+        .bpj {
+            display: inline-block;
+            padding: .4em;
+            font-size: 12px;
+            vertical-align: middle;
+        }
+        .bpu {
+            position: relative;
+            font-size: 12px;
+            line-height: 20px;
+            text-align: center;
+            text-transform: uppercase;
+            margin-top: 3rem !important;
+            margin-bottom: 1rem !important;
+        }
+        .bpw {
+            margin-top: 0;
+            margin-bottom: 0;
+            font-size: 100%;
+            font-weight: 300;
+        }
+        .bpv {
+            position: relative;
+            z-index: 2;
+            display: inline-block;
+            padding-left: 1em;
+            padding-right: 1em;
+            color: white;
+            vertical-align: middle;
+            background-color: #252830;
+        }
+        .bpu:before {
+            position: absolute;
+            top: 50%;
+            display: block;
+            content: "";
+            width: 100%;
+            height: 1px;
+            background-color: #434857;
+        }
+        .bpj:after {
+            content: "";
+            display: inline-block;
+            width: 0;
+            height: 0;
+            margin-left: 2px;
+            margin-left: 2px;
+            vertical-align: middle;
+            border-right: 4px solid transparent;
+            border-left: 4px solid transparent;
+        }
+        .margin-top{
+            margin-top: 50px;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+        <div class="bpu afn afd">
+            <h3 class="bpv bpw">Quick stats</h3>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <div class="brh bpn">
+                    <div class="ago">
+                        <span class="bpi">Температура</span>
+                        <h2 class="bph">
+                            <span id="now_t"></span>&#8451;
+                            <!-- <small class="bpj bpk">5%</small> -->
+                        </h2>
+                        <hr class="bpr aei">
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="brh bpq">          
+                    <div class="ago">
+                        <span class="bpi">Ощущается</span>
+                        <h2 class="bph">
+                            <span id="now_ti"></span>&#8451;
+                            <!-- <small class="bpj bpl">1.3%</small> -->
+                        </h2>
+                        <hr class="bpr aei">
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="brh bpo">
+                    <div class="ago">
+                        <span class="bpi">Влажность</span>
+                        <h2 class="bph">
+                            <span id="now_h"></span>%
+                         <!-- <small class="bpj bpk">6.75%</small> -->
+                        </h2>
+                        <hr class="bpr aei">
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="brh bpp">
+                    <div class="ago">
+                        <span class="bpi">CO2</span>
+                        <h2 class="bph">
+                            <span id="now_ppm"></span>
+                            <!-- <small class="bpj bpl">1.3%</small> -->
+                        </h2>
+                        <hr class="bpr aei">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col margin-top">
+                <canvas id="tempChart" height="450"></canvas>
+            </div>
+          </div>
+          <div class="row">
+                <div class="col margin-top">
+                    <canvas id="coChart" height="450"></canvas>
+                </div>
+              </div>
+      </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
+
+    <script>
+        var ctx = document.getElementById("tempChart").getContext('2d');
+        var ctx2= document.getElementById("coChart").getContext('2d');
+        var temps = [], 
+            ppm = [];
+
+        setTimeout(function run() {
+            GetCurrent()
+            setTimeout(run, 120000);
+        }, 0);
+
+        GetData();
+
+        var options = {
+			maintainAspectRatio: false,
+			spanGaps: false,
+			elements: {
+				line: {
+					tension: 0.4
+				}
+			},
+			plugins: {
+				filler: {
+					propagate: false
+				}
+			},
+			scales: {
+                xAxes: [{
+                    type: 'time',
+                    gridLines: {
+                            color: "rgba(255, 255, 255, 0.2)"
+                    },
+                    time: {
+                        unit: 'hour',
+                        displayFormats: {
+                            hour: 'HH:mm'
+                        }
+                    }
+                }],
+                yAxes: [{
+                    gridLines: {
+                            color: "rgba(255, 255, 255, 0.2)"
+                        },
+                    ticks: {
+                        min: 20,
+                    }
+                }]
+            }
+		};
+
+        var tempChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                datasets: [{
+                        backgroundColor: "rgba(27, 201, 142,0.4)",
+                        borderColor: "rgba(27, 201, 142,1)",
+                        borderCapStyle: 'butt',
+						data: temps,
+						label: 'Температура, °C',
+						fill: 'start'
+					}]
+            },
+            options: options
+        });
+
+        var coOptions = options;
+       //coOptions.scales.yAxes[0].ticks.max = 1200
+        coOptions.scales.yAxes[0].ticks.min = 400
+
+        var coChart = new Chart(ctx2, {
+            type: 'line',
+            data: {
+                datasets: [{
+                        backgroundColor: "rgba(228, 216, 54, 0.4)",
+                        borderColor: "rgba(228, 216, 54, 1)",
+                        borderCapStyle: 'butt',
+						data: ppm,
+						label: 'CO2, ppm',
+						fill: 'start'
+					}]
+            },
+            options: coOptions
+        });
+
+        // Define a plugin to provide data labels
+        Chart.plugins.register({
+            afterDatasetsDraw: function(chart, easing) {
+                // To only draw at the end of animation, check for easing === 1
+                var ctx = chart.ctx;
+
+                chart.data.datasets.forEach(function (dataset, i) {
+                    var meta = chart.getDatasetMeta(i);
+                    if (!meta.hidden) {
+                        meta.data.forEach(function(element, index) {
+                            // Draw the text in black, with the specified font
+                            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+
+                            var fontSize = 16;
+                            var fontStyle = 'normal';
+                            var fontFamily = 'Helvetica Neue';
+                            ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
+
+                            // Just naively convert to string for now
+                            var dataString = dataset.data[index].y.toString();
+
+                            // Make sure alignment settings are correct
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'middle';
+
+                            var padding = 5;
+                            var position = element.tooltipPosition();
+                            ctx.fillText(dataString, position.x, position.y - (fontSize / 2) - padding);
+                        });
+                    }
+                });
+            }
+        });
+
+         // Получение температуры
+        function GetData() {
+            $.ajax({
+                url: '/api/temperature',
+                type: 'GET',
+                contentType: "application/json",
+                success: function (data) {
+                    temps = data.map(function(item,i, arr){
+                        return {
+                            x: new Date(item.time),
+                            y: item.t
+                        }
+                    });
+
+                    ppm = data.map(function(item,i, arr){
+                        return {
+                            x: new Date(item.time),
+                            y: item.ppm
+                        }
+                    });
+
+                    coChart.data.datasets[0].data = ppm;
+                    tempChart.data.datasets[0].data = temps;
+
+                    coChart.update();
+                    tempChart.update();
+                 }
+            });
+        }
+
+        function GetCurrent() {
+            $.ajax({
+                url: '/api/temperature/now',
+                type: 'GET',
+                contentType: "application/json",
+                success: function (data) {
+                    $('#now_t').text(data.t);
+                    $('#now_ti').text(data.ti);
+                    $('#now_h').text(data.h);
+                    $('#now_ppm').text(data.ppm);
+                 }
+            });
+        }
+    </script>
+  </body>
+</html>
