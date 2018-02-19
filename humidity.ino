@@ -13,10 +13,15 @@ int led = 7;
 bool ledIsOn = false;
 byte co2cmd[9] = {0xFF,0x01,0x86,0x00,0x00,0x00,0x00,0x00,0x79}; 
 unsigned char response[9];
+float H = 0;
+float T = 0;
+float Hic = 0;
+unsigned int Ppm = 0;
 
 void setup() {
   // put your setup code here, to run once:
   co2SensorSerial.begin(9600);
+  Serial.begin(9600);
 
   dht.begin();
   lcd.begin(16, 2);
@@ -28,7 +33,8 @@ void loop() {
   // put your main code here, to run repeatedly:
   delay(2000);
   readCO2();  
-  readHumidityAndTemp();  
+  readHumidityAndTemp();
+  Serial.println(String(H)+","+String(T)+","+String(Hic)+","+String(Ppm));  
 }
 
 void readCO2(){
@@ -43,15 +49,16 @@ void readCO2(){
   lcd.setCursor(0,0);
   if ( !(response[0] == 0xFF && response[1] == 0x86 && response[8] == crc) ) {
     lcd.print("CRC error: " + String(crc) + " / "+ String(response[8]));
+    Serial.println("CRC error: " + String(crc) + " / "+ String(response[8]));
   } else {
     unsigned int responseHigh = (unsigned int) response[2];
     unsigned int responseLow = (unsigned int) response[3];
-    unsigned int ppm = (256*responseHigh) + responseLow;
-    lcd.print("PPM=" + String(ppm));
+    Ppm = (256*responseHigh) + responseLow;
+    lcd.print("PPM=" + String(Ppm));
 
-    if (ppm <= 1200 && ppm >= 800)
+    if (Ppm <= 1200 && Ppm >= 800)
       analogWrite(led, 254); 
-    else if (ppm > 1200){
+    else if (Ppm > 1200){
       if (ledIsOn) {
         analogWrite(led, 0);
         ledIsOn = false;
@@ -67,23 +74,22 @@ void readCO2(){
 
 void readHumidityAndTemp()
 {
-  float h = dht.readHumidity();
+  H = dht.readHumidity();
   // Read temperature as Celsius (the default)
-  float t = dht.readTemperature();
+  T = dht.readTemperature();
 
   // Check if any reads failed and exit early (to try again).
-  if (isnan(h) || isnan(t)) {
+  if (isnan(H) || isnan(T)) {
     lcd.print("Failed read DHT!");
+    Serial.println("Failed read DHT!");
     return;
   }
 
   // Compute heat index in Celsius (isFahreheit = false)
-  float hic = dht.computeHeatIndex(t, h, false);
-
-  lcd.print(" H=" + String(h) + "%");
+  Hic = dht.computeHeatIndex(T, H, false);
+    
+  lcd.print(" H=" + String(H) + "%");
   lcd.setCursor(0, 1);
-  lcd.print("T=" + String(t));
-  lcd.print(" Ti=" + String(hic));
+  lcd.print("T=" + String(T));
+  lcd.print(" Ti=" + String(Hic));
 }
-
-
