@@ -1,0 +1,6 @@
+.vs/
+.idea/
+*.user
+RoomWeather/bin/
+RoomWeather/obj/
+RoomWeather/appsettings.json
