@@ -1,0 +1,17 @@
+{
+  "name": "roomweatherbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Grigoriy Klenskiy",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3",
+    "luxon": "^1.0.0",
+    "node-telegram-bot-api": "^0.30.0",
+    "sqlite3": "^4.0.0"
+  }
+}

@@ -34,7 +34,7 @@ void loop() {
   delay(2000);
   readCO2();  
   readHumidityAndTemp();
-  Serial.println(String(H)+","+String(T)+","+String(Hic)+","+String(Ppm));  
+  Serial.println("{ \"H\":"+String(H)+",\"T\":"+String(T)+", \"Hic\":"+String(Hic)+",\"Ppm\":"+String(Ppm)+"}");
 }
 
 void readCO2(){

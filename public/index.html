@@ -206,7 +206,12 @@
 			elements: {
 				line: {
 					tension: 0.4
-				}
+                },
+                point: { 
+                    radius: 0,
+                    hoverRadius: 10,
+                    hitRadius: 10,
+                }
 			},
 			plugins: {
 				filler: {
@@ -231,7 +236,7 @@
                             color: "rgba(255, 255, 255, 0.2)"
                         },
                     ticks: {
-                        min: 20,
+                        /* min: 15, */
                     }
                 }]
             }
@@ -272,7 +277,7 @@
         });
 
         // Define a plugin to provide data labels
-        Chart.plugins.register({
+       /*  Chart.plugins.register({
             afterDatasetsDraw: function(chart, easing) {
                 // To only draw at the end of animation, check for easing === 1
                 var ctx = chart.ctx;
@@ -281,6 +286,8 @@
                     var meta = chart.getDatasetMeta(i);
                     if (!meta.hidden) {
                         meta.data.forEach(function(element, index) {
+                            if(index % 20 != 0)
+                                return;
                             // Draw the text in black, with the specified font
                             ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
 
@@ -303,12 +310,12 @@
                     }
                 });
             }
-        });
+        }); */
 
          // Получение температуры
         function GetData() {
             $.ajax({
-                url: '/api/temperature',
+                url: '/api/temp',
                 type: 'GET',
                 contentType: "application/json",
                 success: function (data) {
@@ -337,7 +344,7 @@
 
         function GetCurrent() {
             $.ajax({
-                url: '/api/temperature/now',
+                url: '/api/temp/now',
                 type: 'GET',
                 contentType: "application/json",
                 success: function (data) {

@@ -1,6 +1,10 @@
 .vs/
 .idea/
+.vscode/
 *.user
-RoomWeather/bin/
-RoomWeather/obj/
-RoomWeather/appsettings.json
+.tools
+Arduino/libraries/
+db/
+node_modules
+settings.js
+config.py
